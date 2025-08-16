@@ -119,7 +119,6 @@ class OfflineDataStore {
 
   // Stub for server sync, with basic conflict handling
   async _syncToServer(store, value) {
-    // Real implementation: send to remote, handle 409/conflict in fetch
     // Conflict resolution can be last-write-wins, timestamp, or merge
     return Promise.resolve();
   }
