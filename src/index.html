@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Offline-First POS</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <input id="search" type="text" placeholder="Search products..." />
+      <span id="status-container">
+        <span id="status">Offline</span>
+        <span id="sync-loader" class="loader" style="display: none"></span>
+      </span>
+    </header>
+    <main>
+      <section id="catalog"></section>
+      <div id="order-status"></div>
+      <section id="cart">
+        <h2>Cart</h2>
+        <div id="cart-items"></div>
+        <div id="cart-total">Total: $0.00</div>
+        <button id="place-order">Place Order</button>
+      </section>
+    </main>
+    <script>
+      window.fetch = (...args) => Promise.resolve({ json: () => Promise.resolve([]) });
+      </script>
+      
+    <script src="OfflineDataStore.js"></script>
+    <script src="OrderManager.js"></script>
+    <script src="PrintJobManager.js"></script>
+    <script src="SyncEngine.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
