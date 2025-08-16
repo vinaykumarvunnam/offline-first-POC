@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const dataStore = new OfflineDataStore();
   await dataStore._init();
 
-  // Insert some demo products if the DB is empty
   const sampleProducts = [
     { id: "1", name: "Burger", price: 5.99 },
     { id: "2", name: "Fries", price: 2.99 },
@@ -113,10 +112,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
   setTimeout(async () => {
-    // Assume you know the order id (e.g. the one just placed)
     const ORDERS = await dataStore.getAll('orders');
     if (ORDERS.length) {
-      // Let's simulate updating the first order in the DB
       const order = ORDERS[0];
       order.status = 'preparing';
       order.updatedAt = Date.now();
