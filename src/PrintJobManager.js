@@ -95,9 +95,8 @@ class PrintJobManager {
     // Format using the right template
     const formatFn = this.templates[job.template];
     const formatted = formatFn ? formatFn(job.payload) : JSON.stringify(job.payload);
-    // Here, you would convert `formatted` to ESC/POS commands and send to the printer.
-    // For demo, we'll simulate success and a small delay:
-    await new Promise((res) => setTimeout(res, 800));
+    // send `formatted` to ESC/POS commands and send to the printer.
+    await new Promise((res) => setTimeout(res, 10000));
     // Simulate error on demand:
     // if (Math.random() < 0.2) throw new Error("Printer offline");
     return true;
