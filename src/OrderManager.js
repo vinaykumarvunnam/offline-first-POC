@@ -5,7 +5,7 @@ class OrderManager {
     this.total = 0;
   }
 
-  // Efficient product search/filter for 1,000+ items
+  // product search/filter for items
   async loadCatalog(query = "") {
     return new Promise((resolve, reject) => {
       const tx = this.ds.db.transaction("products");
@@ -27,7 +27,7 @@ class OrderManager {
     });
   }
 
-  // Cart management with real-time totals and optimistic UI
+  // Cart management
   addToCart(product, customization = {}, options = {}) {
     // Check if already in cart (same product + customization)
     const existing = this.cart.find(item =>
@@ -72,17 +72,16 @@ class OrderManager {
     }
   }
 
-  // Calculates and updates real-time cart totals (sub-100ms)
+  // Calculates and updates cart totals
   _updateTotals() {
-    // Uses a simple array scan; fast enough up to thousands of cart lines
     this.total = this.cart.reduce((sum, item) => sum + item.price * item.qty, 0);
   }
 
-  // Places an order optimistically, returns immediately for UI responsiveness
+  // Places an order and returns immediately for UI
   async placeOrder() {
     if (this.cart.length === 0) throw new Error("Cart is empty.");
     const order = {
-      id: Date.now().toString(), // or a better unique/order ID
+      id: Date.now().toString(), // unique/order ID
       items: this.cart.map(item => ({
         id: item.id,
         name: item.name,
@@ -104,7 +103,7 @@ class OrderManager {
     return order;
   }
 
-  // Order status tracking: Updates local order status (event-driven UI)
+  // Order status tracking: Updates local order status
   async updateOrderStatus(orderId, newStatus) {
     const order = await this.ds.get("orders", orderId);
     if (order) {
